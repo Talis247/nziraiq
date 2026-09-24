@@ -1,0 +1,297 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  TRAVELER
+  OPERATOR
+  STAKEHOLDER
+  ADMIN
+}
+
+enum OperatorType {
+  LODGE
+  GUESTHOUSE
+  GUIDE
+  TRANSPORT
+  ACTIVITY
+  COMMUNITY
+}
+
+enum OperatorPlan {
+  FREE
+  PAID
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum ListingType {
+  STAY
+  ACTIVITY
+  GUIDE
+  TRANSPORT
+  EXPERIENCE
+}
+
+enum ListingStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+}
+
+enum BookingStatus {
+  REQUESTED
+  CONFIRMED
+  DECLINED
+  CANCELLED
+  PAID
+}
+
+enum StakeholderOrgType {
+  BOARD
+  COUNCIL
+  INVESTOR
+  PLANNER
+}
+
+enum SubscriptionTier {
+  FREE
+  BASIC
+  PRO
+}
+
+enum InsightMetricType {
+  DEMAND_SUPPLY_GAP
+  TREND
+  ALERT
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String?
+  name         String?
+  role         Role     @default(TRAVELER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  travelerProfile    TravelerProfile?
+  operatorProfile    OperatorProfile?
+  stakeholderProfile StakeholderProfile?
+  bookings           Booking[]
+  itineraries        Itinerary[]
+  searchEvents       SearchEvent[]
+  messages           Message[]         @relation("SentMessages")
+  listingViews       ListingView[]
+}
+
+model TravelerProfile {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  budgetDefault Float?
+  interests    String[]
+  groupSize    Int      @default(1)
+  homeLocation String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model OperatorProfile {
+  id                 String             @id @default(cuid())
+  userId             String             @unique
+  businessName       String
+  type               OperatorType
+  verificationStatus VerificationStatus @default(PENDING)
+  plan               OperatorPlan       @default(FREE)
+  description        String?
+  phone              String?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listings Listing[]
+}
+
+model StakeholderProfile {
+  id               String             @id @default(cuid())
+  userId           String             @unique
+  orgName          String
+  orgType          StakeholderOrgType
+  subscriptionTier SubscriptionTier   @default(FREE)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Listing {
+  id           String        @id @default(cuid())
+  operatorId   String
+  externalCode String?       @unique
+  title        String
+  description  String
+  type         ListingType
+  region       String
+  city         String?
+  address     String?
+  lat         Float?
+  lng         Float?
+  price       Float
+  currency    String        @default("USD")
+  capacity    Int           @default(1)
+  photos      String[]
+  rules       String?
+  included    String?
+  grade       String?
+  status      ListingStatus @default(ACTIVE)
+  ratingAvg   Float         @default(0)
+  ratingCount Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  operator      OperatorProfile @relation(fields: [operatorId], references: [id], onDelete: Cascade)
+  availability  Availability[]
+  bookings      Booking[]
+  itineraryStops ItineraryStop[]
+  views         ListingView[]
+  messages      Message[]
+}
+
+model Availability {
+  id                String   @id @default(cuid())
+  listingId         String
+  date              DateTime @db.Date
+  slotsOpen         Int      @default(1)
+  capacityRemaining Int
+  priceOverride     Float?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@unique([listingId, date])
+  @@index([date])
+}
+
+model Booking {
+  id          String        @id @default(cuid())
+  travelerId  String
+  listingId   String
+  startDate   DateTime      @db.Date
+  endDate     DateTime      @db.Date
+  guests      Int           @default(1)
+  totalPrice  Float
+  currency    String        @default("USD")
+  status      BookingStatus @default(REQUESTED)
+  notes       String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  traveler User    @relation(fields: [travelerId], references: [id], onDelete: Cascade)
+  listing  Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  messages Message[]
+
+  @@index([status])
+  @@index([startDate, endDate])
+}
+
+model Itinerary {
+  id            String   @id @default(cuid())
+  travelerId    String
+  title         String
+  startDate     DateTime? @db.Date
+  budget        Float?
+  totalEstimate Float?
+  currency      String   @default("USD")
+  shareToken    String?  @unique @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  traveler User            @relation(fields: [travelerId], references: [id], onDelete: Cascade)
+  stops    ItineraryStop[]
+}
+
+model ItineraryStop {
+  id            String  @id @default(cuid())
+  itineraryId   String
+  listingId     String?
+  dayIndex      Int
+  order         Int
+  placeName     String
+  timing        String?
+  estimatedCost Float?
+  reason        String?
+  bookable      Boolean @default(false)
+
+  itinerary Itinerary @relation(fields: [itineraryId], references: [id], onDelete: Cascade)
+  listing   Listing?  @relation(fields: [listingId], references: [id], onDelete: SetNull)
+
+  @@index([itineraryId, dayIndex, order])
+}
+
+model SearchEvent {
+  id         String   @id @default(cuid())
+  userId     String?
+  query      String?
+  interests  String[]
+  region     String?
+  budgetBand String?
+  source     String   @default("copilot")
+  createdAt  DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([region, createdAt])
+  @@index([createdAt])
+}
+
+model Insight {
+  id         String            @id @default(cuid())
+  region     String
+  period     String
+  metricType InsightMetricType
+  payload    Json
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  @@index([region, period])
+  @@index([metricType])
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  bookingId  String?
+  listingId  String?
+  senderId   String
+  body       String
+  createdAt  DateTime @default(now())
+
+  booking Booking? @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  listing Listing? @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  sender  User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+}
+
+model ListingView {
+  id        String   @id @default(cuid())
+  listingId String
+  userId    String?
+  createdAt DateTime @default(now())
+
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([listingId, createdAt])
+}

@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fafaf8;
+  --foreground: #0a0a0a;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --border: #e8e8e4;
+  --zim-green: #1b7a3d;
+  --zim-green-dark: #0f5c2c;
+  --zim-gold: #c6a500;
+  --zim-gold-bright: #fce300;
+  --zim-red: #de2010;
+  --zim-black: #0a0a0a;
+  --zim-white: #fafaf8;
+  --radius-pill: 9999px;
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 40;
+  --z-nav: 50;
+  --z-overlay: 60;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-zim-green: var(--zim-green);
+  --color-zim-green-dark: var(--zim-green-dark);
+  --color-zim-gold: var(--zim-gold);
+  --color-zim-gold-bright: var(--zim-gold-bright);
+  --color-zim-red: var(--zim-red);
+  --color-zim-black: var(--zim-black);
+  --color-zim-white: var(--zim-white);
+  --font-sans: var(--font-poppins);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-poppins), -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--zim-green) 25%, white);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.4s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s ease-out both;
+}
+
+/* Full-screen auth / onboarding frame — no flex fighting */
+.auth-frame {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: minmax(0, 52dvh) minmax(0, 1fr);
+  width: 100%;
+  max-width: 28rem;
+  height: 100dvh;
+  margin-inline: auto;
+  overflow: hidden;
+  background: var(--zim-black);
+}
+
+@media (min-width: 640px) {
+  .auth-frame {
+    max-width: 32rem;
+  }
+}
+
+.auth-hero {
+  position: relative;
+  z-index: var(--z-base);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.auth-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.auth-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.08) 45%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
+  pointer-events: none;
+}
+
+.auth-hero-brand {
+  position: absolute;
+  inset-inline: 0;
+  top: max(14%, calc(var(--safe-top) + 2.75rem));
+  bottom: auto;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 42%;
+  padding-inline: 1.5rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.auth-sheet {
+  --curve-height: 3.25rem;
+  position: relative;
+  z-index: var(--z-raised);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  margin-top: calc(var(--curve-height) * -0.85);
+  padding: 1.25rem 1.75rem calc(1.5rem + var(--safe-bottom));
+  background: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+/* FINDORA-style upward arch — white bulges into the hero */
+.auth-sheet-curve {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--curve-height) * -1);
+  width: 100%;
+  height: var(--curve-height);
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.auth-sheet-curve svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.auth-sheet-scroll {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.auth-sheet-actions {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1.25rem;
+  margin-top: auto;
+  background: #fff;
+}
