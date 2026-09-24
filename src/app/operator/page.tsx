@@ -69,33 +69,35 @@ export default async function OperatorHomePage() {
     <Providers>
       <AppShell role="OPERATOR">
         <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zim-red">
-              Operator
-            </p>
-            <h1 className="mt-1 text-[1.65rem] font-bold leading-tight tracking-tight sm:text-3xl">
-              {operator.businessName}
-            </h1>
-            <p className="mt-1.5 text-sm leading-relaxed text-muted">
-              Listings, availability, and booking requests in one place.
-            </p>
-          </div>
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div className="min-w-0">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zim-red">
+                Operator
+              </p>
+              <h1 className="mt-1 text-[1.65rem] font-bold leading-tight tracking-tight sm:text-3xl">
+                {operator.businessName}
+              </h1>
+              <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-muted">
+                Listings, availability, and booking requests in one place.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-            <Link
-              href="/operator/listings"
-              className="inline-flex items-center justify-center gap-1.5 rounded-2xl bg-zim-black px-3 py-3.5 text-sm font-semibold text-white sm:rounded-full sm:px-4 sm:py-2.5"
-            >
-              <Plus className="h-4 w-4 shrink-0" />
-              Listings
-            </Link>
-            <Link
-              href="/operator/insights"
-              className="inline-flex items-center justify-center gap-1.5 rounded-2xl bg-white px-3 py-3.5 text-sm font-semibold ring-1 ring-black/10 sm:rounded-full sm:px-4 sm:py-2.5"
-            >
-              <TrendingUp className="h-4 w-4 shrink-0" />
-              Insights
-            </Link>
+            <div className="grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
+              <Link
+                href="/operator/listings"
+                className="inline-flex items-center justify-center gap-1.5 rounded-2xl bg-zim-black px-3 py-3.5 text-sm font-semibold text-white sm:rounded-full sm:px-5 sm:py-2.5"
+              >
+                <Plus className="h-4 w-4 shrink-0" />
+                Listings
+              </Link>
+              <Link
+                href="/operator/insights"
+                className="inline-flex items-center justify-center gap-1.5 rounded-2xl bg-white px-3 py-3.5 text-sm font-semibold ring-1 ring-black/10 sm:rounded-full sm:px-5 sm:py-2.5"
+              >
+                <TrendingUp className="h-4 w-4 shrink-0" />
+                Insights
+              </Link>
+            </div>
           </div>
 
           {enquiries > 0 && (
@@ -139,9 +141,9 @@ export default async function OperatorHomePage() {
                 See all
               </Link>
             </div>
-            <div className="space-y-2.5">
+            <div className="grid gap-2.5 lg:grid-cols-2">
               {bookings.length === 0 && (
-                <div className="rounded-[1.25rem] bg-white px-5 py-8 text-center ring-1 ring-black/[0.06]">
+                <div className="rounded-[1.25rem] bg-white px-5 py-8 text-center ring-1 ring-black/[0.06] lg:col-span-2">
                   <CalendarCheck className="mx-auto h-6 w-6 text-muted" />
                   <p className="mt-2 text-sm text-muted">No booking requests yet.</p>
                 </div>
@@ -153,7 +155,7 @@ export default async function OperatorHomePage() {
                   <Link
                     key={b.id}
                     href="/operator/bookings"
-                    className="block rounded-[1.15rem] bg-white p-3.5 ring-1 ring-black/[0.06] transition active:scale-[0.99] sm:p-4"
+                    className="block rounded-[1.15rem] bg-white p-3.5 ring-1 ring-black/[0.06] transition hover:ring-zim-green/25 active:scale-[0.99] sm:p-4"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0 flex-1">

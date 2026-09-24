@@ -98,7 +98,7 @@ svg {
   animation: fade-in 0.35s ease-out both;
 }
 
-/* Full-screen auth / onboarding frame — no flex fighting */
+/* Full-screen auth / onboarding — mobile first, desktop overrides LAST */
 .auth-frame {
   position: relative;
   isolation: isolate;
@@ -110,52 +110,6 @@ svg {
   margin-inline: auto;
   overflow: hidden;
   background: var(--zim-black);
-}
-
-@media (min-width: 640px) {
-  .auth-frame {
-    max-width: 32rem;
-  }
-}
-
-/* Desktop / PC: split hero + form across the viewport */
-@media (min-width: 1024px) {
-  .auth-frame {
-    max-width: none;
-    width: 100%;
-    height: 100dvh;
-    grid-template-columns: minmax(0, 1.05fr) minmax(24rem, 28rem);
-    grid-template-rows: 1fr;
-  }
-
-  .auth-hero {
-    min-height: 100%;
-  }
-
-  .auth-hero-brand {
-    top: 50%;
-    transform: translateY(-55%);
-    max-height: none;
-  }
-
-  .auth-sheet {
-    margin-top: 0;
-    height: 100%;
-    max-height: 100dvh;
-    padding: 2.5rem 2.25rem;
-    border-radius: 0;
-    box-shadow: none;
-    justify-content: center;
-  }
-
-  .auth-sheet-curve {
-    display: none;
-  }
-
-  .auth-sheet-scroll {
-    justify-content: center;
-    overflow-y: auto;
-  }
 }
 
 .auth-hero {
@@ -245,15 +199,6 @@ svg {
   -webkit-overflow-scrolling: touch;
 }
 
-.no-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
 .auth-sheet-actions {
   position: relative;
   z-index: 1;
@@ -264,4 +209,79 @@ svg {
   padding-top: 1.25rem;
   margin-top: auto;
   background: #fff;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .auth-frame {
+    max-width: 32rem;
+  }
+}
+
+/* Desktop / PC: split hero + form — must follow base rules so overrides win */
+@media (min-width: 1024px) {
+  .auth-frame {
+    max-width: none;
+    width: 100%;
+    height: 100dvh;
+    grid-template-columns: minmax(0, 1.15fr) minmax(26rem, 32rem);
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .auth-hero {
+    min-height: 100%;
+  }
+
+  .auth-hero-scrim {
+    background: linear-gradient(
+      105deg,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.2) 45%,
+      rgba(0, 0, 0, 0.35) 100%
+    );
+  }
+
+  .auth-hero-brand {
+    inset-inline: auto;
+    left: clamp(2rem, 6vw, 5rem);
+    right: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    max-height: none;
+    align-items: flex-start;
+    text-align: left;
+    padding-inline: 0;
+  }
+
+  .auth-sheet {
+    margin-top: 0;
+    height: 100%;
+    max-height: 100dvh;
+    padding: 2.75rem 2.5rem;
+    border-radius: 0;
+    box-shadow: none;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .auth-sheet-curve {
+    display: none;
+  }
+
+  .auth-sheet-scroll {
+    justify-content: center;
+    overflow-y: auto;
+  }
+
+  .auth-sheet-actions {
+    margin-top: 1.5rem;
+  }
 }

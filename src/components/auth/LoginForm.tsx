@@ -84,13 +84,15 @@ export function LoginForm({
       imageAlt="Zimbabwe landscape"
       brand={
         <>
-          <div className="mb-3 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white shadow-xl sm:h-[88px] sm:w-[88px]">
-            <MapPinned className="h-8 w-8 text-zim-green sm:h-10 sm:w-10" strokeWidth={1.6} />
+          <div className="mb-3 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white shadow-xl sm:h-[88px] sm:w-[88px] lg:mb-5 lg:h-24 lg:w-24">
+            <MapPinned className="h-8 w-8 text-zim-green sm:h-10 sm:w-10 lg:h-11 lg:w-11" strokeWidth={1.6} />
           </div>
-          <h2 className="text-2xl font-bold uppercase tracking-[0.12em] text-white drop-shadow sm:text-3xl">
+          <h2 className="text-2xl font-bold uppercase tracking-[0.12em] text-white drop-shadow sm:text-3xl lg:text-4xl">
             NziraIQ
           </h2>
-          <p className="mt-1 text-sm font-medium tracking-wide text-white/90">Discover Zimbabwe</p>
+          <p className="mt-1 text-sm font-medium tracking-wide text-white/90 lg:mt-2 lg:text-base">
+            Discover Zimbabwe
+          </p>
         </>
       }
     >
