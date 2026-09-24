@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { after } from "next/server";
 import { auth } from "@/auth";
 import { AppShell } from "@/components/AppShell";
 import { Providers } from "@/components/Providers";
@@ -21,8 +22,10 @@ export default async function ListingDetailPage({
   });
   if (!listing) notFound();
 
-  await prisma.listingView.create({
-    data: { listingId: listing.id, userId: session?.user?.id },
+  after(() => {
+    void prisma.listingView.create({
+      data: { listingId: listing.id, userId: session?.user?.id },
+    });
   });
 
   const raw =

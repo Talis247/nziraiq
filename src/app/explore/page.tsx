@@ -16,6 +16,20 @@ const types = [
   { value: "EXPERIENCE", label: "Experiences" },
 ] as const;
 
+const cardSelect = {
+  id: true,
+  title: true,
+  region: true,
+  city: true,
+  type: true,
+  price: true,
+  currency: true,
+  ratingAvg: true,
+  photos: true,
+  included: true,
+  grade: true,
+} as const;
+
 function exploreHref(opts: { region?: string; type?: string; q?: string; spot?: string }) {
   const params = new URLSearchParams();
   if (opts.q) params.set("q", opts.q);
@@ -69,6 +83,7 @@ export default async function ExplorePage({
               status: "ACTIVE",
               AND: [spotWhere(cluster, spot), textFilter, typeFilter],
             },
+            select: cardSelect,
             orderBy: [{ title: "asc" }],
             take: 4,
           }),
@@ -99,6 +114,7 @@ export default async function ExplorePage({
     : await Promise.all([
         prisma.listing.findMany({
           where,
+          select: cardSelect,
           orderBy: [{ city: "asc" }, { title: "asc" }],
           take: 24,
         }),

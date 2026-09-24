@@ -29,7 +29,7 @@ export default async function HomePage() {
         travelerId: session.user.id,
         status: { in: ["REQUESTED", "CONFIRMED", "PAID"] },
       },
-      include: { listing: true },
+      include: { listing: { select: { title: true, photos: true } } },
       orderBy: { startDate: "asc" },
       take: 3,
     }),

@@ -39,6 +39,7 @@ export function CopilotChat({
   const [place, setPlace] = useState("");
   const [pickedInterests, setPickedInterests] = useState<string[]>([]);
   const [budget, setBudget] = useState<number | null>(null);
+  const [customBudget, setCustomBudget] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [itineraryId, setItineraryId] = useState<string>();
@@ -197,12 +198,36 @@ export function CopilotChat({
             </Chip>
           ))}
         </div>
-        <div className="mb-2 flex gap-1.5">
+        <div className="mb-2 flex flex-wrap items-center gap-1.5">
           {budgetChoices.map((amount) => (
-            <Chip key={amount} on={budget === amount} onClick={() => setBudget(amount)}>
+            <Chip
+              key={amount}
+              on={budget === amount && customBudget === ""}
+              onClick={() => {
+                setCustomBudget("");
+                setBudget(amount);
+              }}
+            >
               ${amount}
             </Chip>
           ))}
+          <label className="flex items-center gap-1 rounded-full bg-black/[0.05] px-3 py-1.5 text-xs font-semibold">
+            <span>$</span>
+            <input
+              type="number"
+              min={1}
+              inputMode="numeric"
+              value={customBudget}
+              onChange={(e) => {
+                const next = e.target.value;
+                setCustomBudget(next);
+                const amount = Number(next);
+                setBudget(amount > 0 ? amount : null);
+              }}
+              placeholder="Your budget"
+              className="w-24 bg-transparent outline-none placeholder:font-medium placeholder:text-muted"
+            />
+          </label>
         </div>
         <div className="flex items-end gap-2 rounded-3xl border border-border bg-black/[0.02] px-3 py-2">
           <textarea
