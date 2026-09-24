@@ -137,8 +137,8 @@ export function AppShell({
 
         <main
           className={cn(
-            "mx-auto w-full flex-1 px-4 py-5 pb-[calc(5.75rem+var(--safe-bottom))] sm:px-6 sm:py-6 md:px-8 md:py-8 md:pb-10 lg:px-10 lg:py-9",
-            wide ? "max-w-7xl" : "max-w-6xl",
+            "w-full flex-1 px-4 py-5 pb-[calc(5.75rem+var(--safe-bottom))] sm:px-6 sm:py-6 md:px-8 md:py-8 md:pb-10 lg:px-10 lg:py-9",
+            wide ? "max-w-[90rem]" : "max-w-[80rem]",
           )}
         >
           {children}
