@@ -5,20 +5,14 @@ import { Providers } from "@/components/Providers";
 
 export default async function CopilotPage() {
   const session = await auth();
+  const firstName = session?.user?.name?.split(" ")[0];
 
   return (
     <Providers>
       <AppShell role={session?.user?.role ?? "TRAVELER"}>
-        <div className="mb-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zim-gold">
-            User layer
-          </p>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight">AI Copilot</h1>
-          <p className="mt-2 max-w-xl text-muted">
-            Plan personalized Zimbabwe trips through conversation — prices and stops come from the marketplace.
-          </p>
+        <div className="flex h-[calc(100dvh-10.5rem)] min-h-0 flex-col md:h-[calc(100dvh-5.5rem)]">
+          <CopilotChat signedIn={!!session?.user} firstName={firstName} />
         </div>
-        <CopilotChat signedIn={!!session?.user} />
       </AppShell>
     </Providers>
   );
