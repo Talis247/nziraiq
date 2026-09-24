@@ -69,7 +69,7 @@ export function AuthFrame({
             fill
             priority
             className="object-cover animate-fade-in"
-            sizes="(max-width: 768px) 100vw, 512px"
+            sizes="(max-width: 1023px) 100vw, 55vw"
           />
         </div>
         <div className="auth-hero-scrim" />

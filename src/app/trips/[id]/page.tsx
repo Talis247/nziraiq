@@ -26,7 +26,7 @@ export default async function TripDetailPage({
   return (
     <Providers>
       <AppShell role={session.user.role}>
-        <div className="mx-auto w-full max-w-lg">
+        <div className="mx-auto w-full max-w-xl lg:max-w-3xl">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zim-red">Trip</p>
           <h1 className="mt-1 text-[1.7rem] font-bold leading-tight tracking-tight">{trip.title}</h1>
           <p className="mt-1.5 text-sm font-semibold text-zim-green">

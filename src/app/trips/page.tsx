@@ -19,11 +19,11 @@ export default async function TripsPage() {
   return (
     <Providers>
       <AppShell role={session.user.role}>
-        <div className="mx-auto w-full max-w-lg">
+        <div className="mx-auto w-full max-w-3xl lg:max-w-none">
           <div className="flex items-center justify-between gap-3">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zim-red">Trips</p>
-              <h1 className="mt-1 text-[1.7rem] font-bold leading-tight tracking-tight">Saved plans</h1>
+              <h1 className="mt-1 text-[1.7rem] font-bold leading-tight tracking-tight sm:text-3xl">Saved plans</h1>
             </div>
             <Link
               href="/copilot"
@@ -32,11 +32,11 @@ export default async function TripsPage() {
               New plan
             </Link>
           </div>
-          <p className="mt-1.5 text-sm text-muted">Itineraries from Copilot, ready to adjust or book.</p>
+          <p className="mt-1.5 max-w-xl text-sm text-muted">Itineraries from Copilot, ready to adjust or book.</p>
 
-          <div className="mt-6 space-y-3">
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {trips.length === 0 && (
-              <div className="rounded-[1.25rem] bg-white px-5 py-8 text-center ring-1 ring-black/[0.06]">
+              <div className="rounded-[1.25rem] bg-white px-5 py-8 text-center ring-1 ring-black/[0.06] sm:col-span-2 lg:col-span-3">
                 <p className="text-sm text-muted">No saved trips yet.</p>
                 <Link href="/copilot" className="mt-2 inline-block text-sm font-semibold text-zim-red">
                   Plan one with Copilot
@@ -47,7 +47,7 @@ export default async function TripsPage() {
               <Link
                 key={t.id}
                 href={`/trips/${t.id}`}
-                className="block rounded-[1.15rem] bg-white p-4 ring-1 ring-black/[0.06]"
+                className="block rounded-[1.15rem] bg-white p-4 ring-1 ring-black/[0.06] transition hover:ring-zim-green/25 lg:p-5"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">

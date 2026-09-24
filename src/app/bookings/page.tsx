@@ -22,14 +22,14 @@ export default async function BookingsPage() {
   return (
     <Providers>
       <AppShell role={session.user.role}>
-        <div className="mx-auto w-full max-w-lg">
+        <div className="mx-auto w-full max-w-3xl lg:max-w-none">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zim-red">Bookings</p>
-          <h1 className="mt-1 text-[1.7rem] font-bold leading-tight tracking-tight">Your requests</h1>
-          <p className="mt-1.5 text-sm text-muted">Stays and activities you have asked operators to confirm.</p>
+          <h1 className="mt-1 text-[1.7rem] font-bold leading-tight tracking-tight sm:text-3xl">Your requests</h1>
+          <p className="mt-1.5 max-w-xl text-sm text-muted">Stays and activities you have asked operators to confirm.</p>
 
-          <div className="mt-6 space-y-3">
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {bookings.length === 0 && (
-              <div className="rounded-[1.25rem] bg-white px-5 py-8 text-center ring-1 ring-black/[0.06]">
+              <div className="rounded-[1.25rem] bg-white px-5 py-8 text-center ring-1 ring-black/[0.06] sm:col-span-2 lg:col-span-3">
                 <p className="text-sm text-muted">No bookings yet.</p>
                 <Link href="/explore" className="mt-2 inline-block text-sm font-semibold text-zim-red">
                   Find a place
@@ -46,7 +46,7 @@ export default async function BookingsPage() {
                 <Link
                   key={b.id}
                   href={`/listings/${b.listingId}`}
-                  className="flex items-center gap-3 rounded-[1.15rem] bg-white p-3 ring-1 ring-black/[0.06]"
+                  className="flex items-center gap-3 rounded-[1.15rem] bg-white p-3 ring-1 ring-black/[0.06] transition hover:ring-zim-green/25 lg:p-4"
                 >
                   <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl">
                     <Image src={photo} alt="" fill unoptimized className="object-cover" sizes="64px" />

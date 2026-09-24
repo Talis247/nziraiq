@@ -29,7 +29,7 @@ export default async function ProfilePage() {
   return (
     <Providers>
       <AppShell role={session.user.role}>
-        <div className="mx-auto w-full max-w-lg">
+        <div className="mx-auto w-full max-w-xl lg:max-w-2xl">
           <div className="flex items-center gap-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-zim-green text-xl font-bold text-white ring-2 ring-zim-red/70 ring-offset-2">
               {initial}
@@ -40,16 +40,14 @@ export default async function ProfilePage() {
             </div>
           </div>
 
-          <div className="mt-8 overflow-hidden rounded-[1.25rem] bg-white ring-1 ring-black/[0.06]">
-            {links.map((item, index) => {
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            {links.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 px-4 py-3.5 ${
-                    index > 0 ? "border-t border-black/[0.05]" : ""
-                  }`}
+                  className="flex items-center gap-3 rounded-[1.15rem] bg-white px-4 py-3.5 ring-1 ring-black/[0.06] transition hover:ring-zim-green/25"
                 >
                   <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black/[0.04]">
                     <Icon className="h-4 w-4 text-zim-green" />

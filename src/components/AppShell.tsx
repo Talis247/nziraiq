@@ -65,29 +65,29 @@ export function AppShell({
   const wide = role === "OPERATOR" || isAdminSide(role);
 
   return (
-    <div
-      className={cn(
-        "relative mx-auto flex min-h-dvh w-full flex-col bg-background",
-        wide ? "max-w-6xl" : "max-w-5xl",
-      )}
-    >
+    <div className="relative flex min-h-dvh w-full flex-col bg-background">
       <header
         className={cn(
           "sticky top-0 z-[var(--z-sticky)] isolate border-b border-border/80 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/85",
-          pathname === "/home" && "max-sm:hidden",
+          pathname === "/home" && "max-md:hidden",
         )}
       >
-        <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
-          <Link href={homeHref} className="flex min-w-0 items-center gap-2">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-zim-green text-white">
-              <MapPinned className="h-4 w-4" />
+        <div
+          className={cn(
+            "mx-auto flex w-full items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8",
+            wide ? "max-w-7xl" : "max-w-6xl",
+          )}
+        >
+          <Link href={homeHref} className="flex min-w-0 items-center gap-2.5">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-zim-green text-white sm:h-10 sm:w-10">
+              <MapPinned className="h-4 w-4 sm:h-[1.125rem] sm:w-[1.125rem]" />
             </span>
             <div className="min-w-0">
-              <p className="truncate text-sm font-bold tracking-wide">NziraIQ</p>
+              <p className="truncate text-sm font-bold tracking-wide sm:text-base">NziraIQ</p>
               <p className="truncate text-[10px] uppercase tracking-wider text-muted">{layerLabel}</p>
             </div>
           </Link>
-          <nav className="hidden items-center gap-1 sm:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
             {nav.map((item) => {
               const active = isActive(pathname, item.href, "exact" in item ? item.exact : false);
               const Icon = item.icon;
@@ -96,7 +96,7 @@ export function AppShell({
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium transition",
+                    "flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition lg:px-4",
                     active
                       ? "bg-zim-green text-white"
                       : "text-muted hover:bg-black/5 hover:text-foreground",
@@ -111,20 +111,20 @@ export function AppShell({
         </div>
       </header>
 
-      <main className="relative z-[var(--z-base)] flex-1 px-4 py-5 pb-[calc(5.75rem+var(--safe-bottom))] sm:px-6 sm:py-6 sm:pb-8">
+      <main
+        className={cn(
+          "relative z-[var(--z-base)] mx-auto w-full flex-1 px-4 py-5 pb-[calc(5.75rem+var(--safe-bottom))] sm:px-6 sm:py-6 md:pb-10 lg:px-8 lg:py-8",
+          wide ? "max-w-7xl" : "max-w-6xl",
+        )}
+      >
         {children}
       </main>
 
       <nav
-        className="fixed inset-x-0 bottom-0 z-[var(--z-nav)] isolate border-t border-border bg-white/98 pb-[var(--safe-bottom)] backdrop-blur sm:hidden"
+        className="fixed inset-x-0 bottom-0 z-[var(--z-nav)] isolate border-t border-border bg-white/98 pb-[var(--safe-bottom)] backdrop-blur md:hidden"
         aria-label="Mobile"
       >
-        <div
-          className={cn(
-            "mx-auto flex items-stretch justify-around gap-0.5 px-1.5 py-1.5",
-            wide ? "max-w-6xl" : "max-w-5xl",
-          )}
-        >
+        <div className="mx-auto flex max-w-6xl items-stretch justify-around gap-0.5 px-1.5 py-1.5">
           {nav.map((item) => {
             const active = isActive(pathname, item.href, "exact" in item ? item.exact : false);
             const Icon = item.icon;

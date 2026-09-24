@@ -58,7 +58,23 @@ export const oauthEnabled = {
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
-  session: { strategy: "jwt" },
+  secret: process.env.AUTH_SECRET,
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days — survives refresh
+    updateAge: 24 * 60 * 60,
+  },
+  cookies: {
+    sessionToken: {
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 30 * 24 * 60 * 60,
+      },
+    },
+  },
   pages: {
     signIn: "/login",
   },
@@ -111,9 +127,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     async jwt({ token, user, account, profile }) {
       if (account?.provider === "google" || account?.provider === "facebook") {
-        const email = (user?.email || (profile as { email?: string } | undefined)?.email)?.toLowerCase();
+        const email = (
+          user?.email || (profile as { email?: string } | undefined)?.email
+        )?.toLowerCase();
         if (!email) return token;
         const dbUser = await upsertOAuthUser(email, user?.name ?? null);
+        token.sub = dbUser.id;
         token.id = dbUser.id;
         token.role = dbUser.role;
         token.email = dbUser.email;
@@ -122,15 +141,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
 
       if (user) {
+        token.sub = user.id!;
         token.id = user.id!;
         token.role = user.role;
+        token.email = user.email;
+        token.name = user.name;
       }
+
+      // Keep identity on refresh even if custom fields were missing
+      if (!token.id && token.sub) {
+        token.id = token.sub;
+      }
+
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = String(token.id ?? "");
+        const id = String(token.id || token.sub || "");
+        session.user.id = id;
         session.user.role = (token.role as Role) || "TRAVELER";
+        if (token.email) session.user.email = String(token.email);
+        if (token.name !== undefined) session.user.name = token.name as string | null;
       }
       return session;
     },

@@ -2,7 +2,6 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Mail, MapPinned } from "lucide-react";
 import { AuthFrame } from "@/components/onboarding/OnboardingFlow";
@@ -45,32 +44,20 @@ function FacebookIcon() {
 type Method = "choose" | "email";
 
 export function LoginForm({
-  googleEnabled,
-  facebookEnabled,
+  googleEnabled: _googleEnabled,
+  facebookEnabled: _facebookEnabled,
 }: {
   googleEnabled: boolean;
   facebookEnabled: boolean;
 }) {
-  const router = useRouter();
   const [method, setMethod] = useState<Method>("choose");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState<"google" | "facebook" | "email" | null>(null);
 
-  async function oauth(provider: "google" | "facebook") {
-    const enabled = provider === "google" ? googleEnabled : facebookEnabled;
-    if (!enabled) {
-      setError(
-        provider === "google"
-          ? "Google sign-in is not configured yet. Use email for now."
-          : "Facebook sign-in is not configured yet. Use email for now.",
-      );
-      return;
-    }
-    setError("");
-    setLoading(provider);
-    await signIn(provider, { callbackUrl: "/home" });
+  async function oauth(_provider: "google" | "facebook") {
+    // OAuth providers are placeholders for now — do nothing.
   }
 
   async function onEmailSubmit(e: FormEvent) {
@@ -82,13 +69,13 @@ export function LoginForm({
       password,
       redirect: false,
     });
-    setLoading(null);
-    if (res?.error) {
+    if (!res?.ok || res.error) {
+      setLoading(null);
       setError("Invalid email or password.");
       return;
     }
-    router.push("/home");
-    router.refresh();
+    // Hard navigation so the session cookie is sent on the next request (and on refresh).
+    window.location.assign("/home");
   }
 
   return (

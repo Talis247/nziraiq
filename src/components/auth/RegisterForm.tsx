@@ -2,7 +2,6 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Mail, MapPinned } from "lucide-react";
 import { AuthFrame } from "@/components/onboarding/OnboardingFlow";
@@ -63,13 +62,12 @@ const fieldClass =
 type Method = "choose" | "email";
 
 export function RegisterForm({
-  googleEnabled,
-  facebookEnabled,
+  googleEnabled: _googleEnabled,
+  facebookEnabled: _facebookEnabled,
 }: {
   googleEnabled: boolean;
   facebookEnabled: boolean;
 }) {
-  const router = useRouter();
   const [method, setMethod] = useState<Method>("choose");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -81,19 +79,8 @@ export function RegisterForm({
   const [error, setError] = useState("");
   const [loading, setLoading] = useState<"google" | "facebook" | "email" | null>(null);
 
-  async function oauth(provider: "google" | "facebook") {
-    const enabled = provider === "google" ? googleEnabled : facebookEnabled;
-    if (!enabled) {
-      setError(
-        provider === "google"
-          ? "Google sign-up is not configured yet. Use email for now."
-          : "Facebook sign-up is not configured yet. Use email for now.",
-      );
-      return;
-    }
-    setError("");
-    setLoading(provider);
-    await signIn(provider, { callbackUrl: "/home" });
+  async function oauth(_provider: "google" | "facebook") {
+    // OAuth providers are placeholders for now — do nothing.
   }
 
   async function onEmailSubmit(e: FormEvent) {
@@ -120,13 +107,12 @@ export function RegisterForm({
       return;
     }
     const sign = await signIn("credentials", { email, password, redirect: false });
-    setLoading(null);
-    if (sign?.error) {
-      router.push("/login");
+    if (!sign?.ok || sign.error) {
+      setLoading(null);
+      window.location.assign("/login");
       return;
     }
-    router.push(role === "OPERATOR" ? "/operator" : "/home");
-    router.refresh();
+    window.location.assign(role === "OPERATOR" ? "/operator" : "/home");
   }
 
   return (

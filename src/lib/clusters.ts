@@ -71,13 +71,38 @@ export const clusters: PlaceCluster[] = [
     key: "Kariba",
     label: "Lake Kariba",
     anchor: ["kariba"],
-    nearby: ["binga", "matusadona", "kariba"],
+    nearby: ["binga", "matusadona", "chirundu", "kariba"],
     province: "Mashonaland West",
-    aroundLabel: "Binga, Matusadona, and small lakeside businesses",
+    aroundLabel: "Binga, Matusadona, Chirundu, and small lakeside businesses",
     spots: [
-      { name: "Kariba", terms: ["kariba"], kind: "place" },
-      { name: "Binga", terms: ["binga"], kind: "place" },
-      { name: "Matusadona", terms: ["matusadona"], kind: "place" },
+      {
+        name: "Kariba",
+        terms: ["kariba"],
+        kind: "place",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
+      },
+      {
+        name: "Chirundu",
+        terms: ["chirundu"],
+        kind: "place",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/The_Chirundu_Bridge.jpg/1280px-The_Chirundu_Bridge.jpg",
+      },
+      {
+        name: "Binga",
+        terms: ["binga"],
+        kind: "place",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
+      },
+      {
+        name: "Matusadona",
+        terms: ["matusadona"],
+        kind: "place",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
+      },
       { name: "Crafters & curios", terms: ["curio", "craft", "community", "artisan", "weav"], kind: "small" },
     ],
   },
@@ -146,9 +171,27 @@ export const clusters: PlaceCluster[] = [
     province: "Mashonaland West",
     aroundLabel: "Chirundu, Kariba, and small businesses on the Zambezi road",
     spots: [
-      { name: "Mana Pools", terms: ["mana pools", "manapools"], kind: "place" },
-      { name: "Chirundu", terms: ["chirundu"], kind: "place" },
-      { name: "Kariba", terms: ["kariba"], kind: "place" },
+      {
+        name: "Mana Pools",
+        terms: ["mana pools", "manapools"],
+        kind: "place",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Island_in_the_Zambezi_River_at_Mana_Pools_National_Park-1.jpg/1280px-Island_in_the_Zambezi_River_at_Mana_Pools_National_Park-1.jpg",
+      },
+      {
+        name: "Chirundu",
+        terms: ["chirundu"],
+        kind: "place",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/The_Chirundu_Bridge.jpg/1280px-The_Chirundu_Bridge.jpg",
+      },
+      {
+        name: "Kariba",
+        terms: ["kariba"],
+        kind: "place",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
+      },
       { name: "Crafters & curios", terms: ["curio", "craft", "community", "artisan", "weav"], kind: "small" },
     ],
   },

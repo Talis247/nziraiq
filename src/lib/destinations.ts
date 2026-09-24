@@ -12,11 +12,54 @@ const townPhotos: Record<string, string> = {
   kwekwe: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Kwekwe_Mosque.jpg",
   kadoma: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Kadoma_Townhall.JPG/640px-Kadoma_Townhall.JPG",
   rusape: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Rusape_Dam.jpg/640px-Rusape_Dam.jpg",
-  chirundu: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/The_Chirundu_Bridge.jpg/640px-The_Chirundu_Bridge.jpg",
+  chirundu:
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/The_Chirundu_Bridge.jpg/1280px-The_Chirundu_Bridge.jpg",
   beitbridge: "https://upload.wikimedia.org/wikipedia/commons/7/72/Beitbridge_borderpost.jpg",
   dete: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Hwange_National_Park%2C_Zimbabwe_%2848595113747%29.jpg/640px-Hwange_National_Park%2C_Zimbabwe_%2848595113747%29.jpg",
-  chiredzi: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg/640px-Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg",
+  chiredzi:
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg/640px-Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg",
+  // Exact where we have them
+  binga:
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
+  matusadona:
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
+  matetsi:
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Hwange_National_Park%2C_Zimbabwe_%2848595113747%29.jpg/1280px-Hwange_National_Park%2C_Zimbabwe_%2848595113747%29.jpg",
+  khami:
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Bulawayo_City_Hall.jpg/1280px-Bulawayo_City_Hall.jpg",
+  domboshawa:
+    "https://upload.wikimedia.org/wikipedia/commons/4/42/Harare_Skyline.jpg",
+  chitungwiza:
+    "https://upload.wikimedia.org/wikipedia/commons/4/42/Harare_Skyline.jpg",
+  karoi:
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Sleeping_Pool%2C_Chinhoyi_Caves%2C_Zimbabwe.JPG/1280px-Sleeping_Pool%2C_Chinhoyi_Caves%2C_Zimbabwe.JPG",
+  juliasdale:
+    "https://upload.wikimedia.org/wikipedia/commons/9/96/Central_nyanga_np.jpg",
+  troutbeck:
+    "https://upload.wikimedia.org/wikipedia/commons/9/96/Central_nyanga_np.jpg",
+  chilojo:
+    "https://upload.wikimedia.org/wikipedia/commons/6/6a/Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg",
+  crafters:
+    "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1200&q=80",
+  curios:
+    "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1200&q=80",
+  community:
+    "https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?auto=format&fit=crop&w=1200&q=80",
 };
+
+/** Cover image for a cluster spot — exact when known, representative nearby otherwise. */
+export function coverForSpot(name: string, fallbackImage?: string | null) {
+  if (fallbackImage) return fallbackImage;
+  const hay = name.toLowerCase().trim();
+  if (hay.includes("crafter") || hay.includes("curio") || hay.includes("craft")) {
+    return townPhotos.crafters;
+  }
+  const fromTown = Object.keys(townPhotos)
+    .sort((a, b) => b.length - a.length)
+    .find((key) => hay === key || hay.includes(key));
+  if (fromTown) return townPhotos[fromTown];
+  return photoForPlace(name) || destinations[0]?.image;
+}
 
 export function fastPhoto(url: string) {
   if (!url || url.startsWith("/") || url.startsWith("blob:")) return url;
