@@ -62,7 +62,7 @@ export const clusters: PlaceCluster[] = [
         terms: ["mutirikwi", "mutirikwe", "kyle"],
         kind: "place",
         image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Lake_Mutirikwe.jpg/1280px-Lake_Mutirikwe.jpg",
+          "/photos/mutirikwi.jpg",
       },
       { name: "Crafters & curios", terms: ["curio", "craft", "community", "artisan", "weav"], kind: "small" },
     ],
@@ -80,28 +80,28 @@ export const clusters: PlaceCluster[] = [
         terms: ["kariba"],
         kind: "place",
         image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
+          "/photos/kariba.jpg",
       },
       {
         name: "Chirundu",
         terms: ["chirundu"],
         kind: "place",
         image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/The_Chirundu_Bridge.jpg/1280px-The_Chirundu_Bridge.jpg",
+          "/photos/chirundu.jpg",
       },
       {
         name: "Binga",
         terms: ["binga"],
         kind: "place",
         image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
+          "/photos/kariba.jpg",
       },
       {
         name: "Matusadona",
         terms: ["matusadona"],
         kind: "place",
         image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
+          "/photos/kariba.jpg",
       },
       { name: "Crafters & curios", terms: ["curio", "craft", "community", "artisan", "weav"], kind: "small" },
     ],
@@ -176,21 +176,21 @@ export const clusters: PlaceCluster[] = [
         terms: ["mana pools", "manapools"],
         kind: "place",
         image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Island_in_the_Zambezi_River_at_Mana_Pools_National_Park-1.jpg/1280px-Island_in_the_Zambezi_River_at_Mana_Pools_National_Park-1.jpg",
+          "/photos/mana.jpg",
       },
       {
         name: "Chirundu",
         terms: ["chirundu"],
         kind: "place",
         image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/The_Chirundu_Bridge.jpg/1280px-The_Chirundu_Bridge.jpg",
+          "/photos/chirundu.jpg",
       },
       {
         name: "Kariba",
         terms: ["kariba"],
         kind: "place",
         image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
+          "/photos/kariba.jpg",
       },
       { name: "Crafters & curios", terms: ["curio", "craft", "community", "artisan", "weav"], kind: "small" },
     ],

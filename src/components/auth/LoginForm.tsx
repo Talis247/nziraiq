@@ -80,7 +80,7 @@ export function LoginForm({
 
   return (
     <AuthFrame
-      image="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=80"
+      image="/photos/hero-savanna.jpg"
       imageAlt="Zimbabwe landscape"
       brand={
         <>

@@ -7,44 +7,60 @@ export type Destination = {
 };
 
 const townPhotos: Record<string, string> = {
-  mutare: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Mutare_aerial.jpg/640px-Mutare_aerial.jpg",
-  gweru: "https://upload.wikimedia.org/wikipedia/commons/1/11/Gweru_Memorial_Library.jpg",
-  kwekwe: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Kwekwe_Mosque.jpg",
-  kadoma: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Kadoma_Townhall.JPG/640px-Kadoma_Townhall.JPG",
-  rusape: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Rusape_Dam.jpg/640px-Rusape_Dam.jpg",
-  chirundu:
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/The_Chirundu_Bridge.jpg/1280px-The_Chirundu_Bridge.jpg",
-  beitbridge: "https://upload.wikimedia.org/wikipedia/commons/7/72/Beitbridge_borderpost.jpg",
-  dete: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Hwange_National_Park%2C_Zimbabwe_%2848595113747%29.jpg/640px-Hwange_National_Park%2C_Zimbabwe_%2848595113747%29.jpg",
-  chiredzi:
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg/640px-Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg",
-  // Exact where we have them
-  binga:
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
-  matusadona:
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
-  matetsi:
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Hwange_National_Park%2C_Zimbabwe_%2848595113747%29.jpg/1280px-Hwange_National_Park%2C_Zimbabwe_%2848595113747%29.jpg",
-  khami:
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Bulawayo_City_Hall.jpg/1280px-Bulawayo_City_Hall.jpg",
-  domboshawa:
-    "https://upload.wikimedia.org/wikipedia/commons/4/42/Harare_Skyline.jpg",
-  chitungwiza:
-    "https://upload.wikimedia.org/wikipedia/commons/4/42/Harare_Skyline.jpg",
-  karoi:
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Sleeping_Pool%2C_Chinhoyi_Caves%2C_Zimbabwe.JPG/1280px-Sleeping_Pool%2C_Chinhoyi_Caves%2C_Zimbabwe.JPG",
-  juliasdale:
-    "https://upload.wikimedia.org/wikipedia/commons/9/96/Central_nyanga_np.jpg",
-  troutbeck:
-    "https://upload.wikimedia.org/wikipedia/commons/9/96/Central_nyanga_np.jpg",
-  chilojo:
-    "https://upload.wikimedia.org/wikipedia/commons/6/6a/Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg",
-  crafters:
-    "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1200&q=80",
-  curios:
-    "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1200&q=80",
-  community:
-    "https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?auto=format&fit=crop&w=1200&q=80",
+  mutare: "/photos/mutare.jpg",
+  gweru: "/photos/gweru.jpg",
+  kwekwe: "/photos/kwekwe.jpg",
+  kadoma: "/photos/kadoma.jpg",
+  rusape: "/photos/rusape.jpg",
+  chirundu: "/photos/chirundu.jpg",
+  beitbridge: "/photos/beitbridge.jpg",
+  dete: "/photos/hwange.jpg",
+  chiredzi: "/photos/gonarezhou.jpg",
+  binga: "/photos/kariba.jpg",
+  matusadona: "/photos/kariba.jpg",
+  matetsi: "/photos/hwange.jpg",
+  khami: "/photos/bulawayo.jpg",
+  domboshawa: "/photos/harare.jpg",
+  chitungwiza: "/photos/harare.jpg",
+  karoi: "/photos/chinhoyi.jpg",
+  juliasdale: "/photos/nyanga.jpg",
+  troutbeck: "/photos/nyanga.jpg",
+  chilojo: "/photos/gonarezhou.jpg",
+  crafters: "/photos/craft-1.jpg",
+  curios: "/photos/craft-1.jpg",
+  community: "/photos/craft-1.jpg",
+};
+
+const remoteToLocal: [RegExp, string][] = [
+  [/victoria|catarata/i, "/photos/victoria-falls.jpg"],
+  [/hwange|48595113747/i, "/photos/hwange.jpg"],
+  [/mana|zambezi_river/i, "/photos/mana.jpg"],
+  [/great-zim|great zimbabwe/i, "/photos/great-zimbabwe.jpg"],
+  [/mutirik/i, "/photos/mutirikwi.jpg"],
+  [/gonarezhou|chilojo/i, "/photos/gonarezhou.jpg"],
+  [/kariba/i, "/photos/kariba.jpg"],
+  [/matobo/i, "/photos/matobo.jpg"],
+  [/nyanga/i, "/photos/nyanga.jpg"],
+  [/chimanimani/i, "/photos/chimanimani.jpg"],
+  [/vumba/i, "/photos/vumba.jpg"],
+  [/chinhoyi|sleeping_pool/i, "/photos/chinhoyi.jpg"],
+  [/harare/i, "/photos/harare.jpg"],
+  [/bulawayo/i, "/photos/bulawayo.jpg"],
+  [/chirundu/i, "/photos/chirundu.jpg"],
+  [/mutare/i, "/photos/mutare.jpg"],
+  [/1566073771259|1520250497591|1542314831/, "/photos/stay-1.jpg"],
+  [/1516426122078|1547471080|1551632811|1523805009345/, "/photos/safari-1.jpg"],
+  [/1414235077428/, "/photos/food-1.jpg"],
+  [/1452860606245|1489392191049/, "/photos/craft-1.jpg"],
+  [/1469854523086|1507525428034/, "/photos/road-1.jpg"],
+];
+
+export const dummyPhotos: Record<string, string[]> = {
+  STAY: ["/photos/stay-1.jpg", "/photos/stay-2.jpg", "/photos/stay-3.jpg"],
+  ACTIVITY: ["/photos/safari-1.jpg", "/photos/safari-2.jpg", "/photos/safari-3.jpg"],
+  GUIDE: ["/photos/safari-1.jpg", "/photos/safari-3.jpg", "/photos/road-1.jpg"],
+  TRANSPORT: ["/photos/road-1.jpg", "/photos/safari-2.jpg"],
+  EXPERIENCE: ["/photos/food-1.jpg", "/photos/craft-1.jpg", "/photos/stay-2.jpg"],
 };
 
 /** Cover image for a cluster spot — exact when known, representative nearby otherwise. */
@@ -63,19 +79,25 @@ export function coverForSpot(name: string, fallbackImage?: string | null) {
 
 export function fastPhoto(url: string) {
   if (!url || url.startsWith("/") || url.startsWith("blob:")) return url;
-  const clean = url.split("?")[0];
-  if (clean.includes("thumb.wikimedia.org") || clean.includes("/thumb/")) {
-    return clean
-      .replace("https://thumb.wikimedia.org/", "https://upload.wikimedia.org/")
-      .replace(/\/\d+px-/, "/960px-");
+  for (const [pattern, local] of remoteToLocal) {
+    if (pattern.test(url)) return local;
   }
-  const file = clean.match(
-    /https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/([0-9a-f])\/([0-9a-f]{2})\/([^/]+)$/i,
-  );
-  if (file) {
-    return `https://upload.wikimedia.org/wikipedia/commons/thumb/${file[1]}/${file[2]}/${file[3]}/960px-${file[3]}`;
+  if (url.includes("images.unsplash.com")) {
+    return `${url.split("?")[0]}?auto=format&fit=crop&w=640&q=55`;
   }
-  return clean;
+  return "/photos/safari-1.jpg";
+}
+
+export function listingPhoto(
+  type: string,
+  city?: string | null,
+  region?: string | null,
+  index = 0,
+) {
+  const place = photoForPlace(city, region);
+  if (place?.startsWith("/photos/")) return place;
+  const pool = dummyPhotos[type] || dummyPhotos.ACTIVITY;
+  return pool[Math.abs(index) % pool.length];
 }
 
 export function photoForPlace(city?: string | null, region?: string | null) {
@@ -106,106 +128,97 @@ export const destinations: Destination[] = [
     place: "Matabeleland North",
     regionQuery: "Victoria Falls",
     blurb: "The smoke that thunders",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Cataratas_Victoria%2C_Zambia-Zimbabue%2C_2018-07-27%2C_DD_30-34_PAN.jpg/1280px-Cataratas_Victoria%2C_Zambia-Zimbabue%2C_2018-07-27%2C_DD_30-34_PAN.jpg",
+    image: "/photos/victoria-falls.jpg",
   },
   {
     name: "Hwange",
     place: "Hwange National Park",
     regionQuery: "Hwange",
     blurb: "Elephant country",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Hwange_National_Park%2C_Zimbabwe_%2848595113747%29.jpg/1280px-Hwange_National_Park%2C_Zimbabwe_%2848595113747%29.jpg",
+    image: "/photos/hwange.jpg",
   },
   {
     name: "Mana Pools",
     place: "Zambezi Valley",
     regionQuery: "Mana Pools",
     blurb: "Canoes and walking safaris",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Island_in_the_Zambezi_River_at_Mana_Pools_National_Park-1.jpg/1280px-Island_in_the_Zambezi_River_at_Mana_Pools_National_Park-1.jpg",
+    image: "/photos/mana.jpg",
   },
   {
     name: "Great Zimbabwe",
     place: "Masvingo",
     regionQuery: "Masvingo",
     blurb: "Stone city of the ancestors",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Great-zim-aerial-looking-West.JPG/1280px-Great-zim-aerial-looking-West.JPG",
+    image: "/photos/great-zimbabwe.jpg",
   },
   {
     name: "Lake Mutirikwi",
     place: "Near Great Zimbabwe",
     regionQuery: "Mutirikwi",
     blurb: "The lake beside the ruins",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Lake_Mutirikwe.jpg/1280px-Lake_Mutirikwe.jpg",
+    image: "/photos/mutirikwi.jpg",
   },
   {
     name: "Gonarezhou",
     place: "Chilojo Cliffs",
     regionQuery: "Gonarezhou",
     blurb: "The place of elephants",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/6/6a/Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg",
+    image: "/photos/gonarezhou.jpg",
   },
   {
     name: "Lake Kariba",
     place: "Kariba",
     regionQuery: "Kariba",
     blurb: "Sunsets on the lake",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg",
+    image: "/photos/kariba.jpg",
   },
   {
     name: "Matobo",
     place: "Matobo Hills",
     regionQuery: "Matobo",
     blurb: "Granite and rock art",
-    image: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Sunrise_Matobo_Zimbabwe.jpg",
+    image: "/photos/matobo.jpg",
   },
   {
     name: "Nyanga",
     place: "Eastern Highlands",
     regionQuery: "Nyanga",
     blurb: "Highlands and mist",
-    image: "https://upload.wikimedia.org/wikipedia/commons/9/96/Central_nyanga_np.jpg",
+    image: "/photos/nyanga.jpg",
   },
   {
     name: "Chimanimani",
     place: "Eastern Highlands",
     regionQuery: "Chimanimani",
     blurb: "Mountains on the border",
-    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Chimanimani-mountains.jpg",
+    image: "/photos/chimanimani.jpg",
   },
   {
     name: "Vumba",
     place: "Near Mutare",
     regionQuery: "Vumba",
     blurb: "Forests and gardens",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Vumba%2C_Zimbabwe.jpg/1280px-Vumba%2C_Zimbabwe.jpg",
+    image: "/photos/vumba.jpg",
   },
   {
     name: "Chinhoyi Caves",
     place: "Mashonaland West",
     regionQuery: "Chinhoyi",
     blurb: "The blue sleeping pool",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Sleeping_Pool%2C_Chinhoyi_Caves%2C_Zimbabwe.JPG/1280px-Sleeping_Pool%2C_Chinhoyi_Caves%2C_Zimbabwe.JPG",
+    image: "/photos/chinhoyi.jpg",
   },
   {
     name: "Harare",
     place: "Harare",
     regionQuery: "Harare",
     blurb: "Start from the capital",
-    image: "https://upload.wikimedia.org/wikipedia/commons/4/42/Harare_Skyline.jpg",
+    image: "/photos/harare.jpg",
   },
   {
     name: "Bulawayo",
     place: "Bulawayo",
     regionQuery: "Bulawayo",
     blurb: "City of kings",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Bulawayo_City_Hall.jpg/1280px-Bulawayo_City_Hall.jpg",
+    image: "/photos/bulawayo.jpg",
   },
 ];

@@ -22,7 +22,7 @@ const slides = [
     title: "Beyond the big hits",
     body: "Find authentic stays, guides and community experiences across Zimbabwe — not just the famous ones.",
     image:
-      "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=80",
+      "/photos/hero-safari.jpg",
     icon: Compass,
     accent: "var(--zim-green)",
   },
@@ -32,7 +32,7 @@ const slides = [
     title: "Chat your trip into shape",
     body: "Tell the AI Copilot your budget, interests and days. Get a day-by-day plan grounded in real listings.",
     image:
-      "https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?auto=format&fit=crop&w=1400&q=80",
+      "/photos/nyanga.jpg",
     icon: MessageSquareText,
     accent: "var(--zim-gold)",
   },
@@ -42,7 +42,7 @@ const slides = [
     title: "Book local. Power the sector.",
     body: "Support operators of every size. Every search and booking becomes insight that helps tourism grow smarter.",
     image:
-      "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=80",
+      "/photos/hero-safari.jpg",
     icon: Store,
     accent: "var(--zim-red)",
   },
@@ -206,7 +206,7 @@ export function OnboardingFlow() {
 export function WelcomeScreen() {
   return (
     <AuthFrame
-      image="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=80"
+      image="/photos/hero-savanna.jpg"
       imageAlt="Zimbabwe landscape"
       brand={
         <>

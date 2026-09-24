@@ -133,7 +133,7 @@ export default async function HomePage() {
                       <Image
                         src={
                           b.listing.photos[0] ||
-                          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Lake_Kariba.jpg/1280px-Lake_Kariba.jpg"
+                          "/photos/kariba.jpg"
                         }
                         alt=""
                         fill

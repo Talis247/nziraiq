@@ -2,6 +2,7 @@ import { PrismaClient, ListingType, OperatorType } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import * as XLSX from "xlsx";
 import path from "path";
+import { listingPhoto } from "../src/lib/destinations";
 
 const prisma = new PrismaClient();
 
@@ -9,18 +10,6 @@ const FILE = path.resolve(
   __dirname,
   "../../TOURISM FACILITIES DATABASE_ (006).xlsx",
 );
-
-const PHOTOS: Record<ListingType, string> = {
-  STAY: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80",
-  ACTIVITY:
-    "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80",
-  GUIDE:
-    "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
-  TRANSPORT:
-    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
-  EXPERIENCE:
-    "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80",
-};
 
 function listingType(category: string): ListingType {
   const c = category.toUpperCase();
@@ -161,7 +150,7 @@ async function main() {
   for (let i = 0; i < facilities.length; i += chunk) {
     const slice = facilities.slice(i, i + chunk);
     await prisma.listing.createMany({
-      data: slice.map((f) => ({
+      data: slice.map((f, n) => ({
         operatorId,
         externalCode: f.externalCode,
         title: f.title,
@@ -173,7 +162,7 @@ async function main() {
         price: 0,
         currency: "USD",
         capacity: f.type === "STAY" ? 4 : 10,
-        photos: [PHOTOS[f.type]],
+        photos: [listingPhoto(f.type, f.city, f.region, i + n)],
         included: f.included,
         grade: f.grade,
         rules: f.phone ? `Phone: ${f.phone}` : null,
@@ -181,6 +170,19 @@ async function main() {
       })),
     });
     console.log(`Imported ${Math.min(i + chunk, facilities.length)} / ${facilities.length}`);
+  }
+
+  const leftovers = await prisma.listing.findMany({
+    where: { externalCode: null },
+    select: { id: true, type: true, city: true, region: true, photos: true },
+  });
+  for (const row of leftovers) {
+    if (row.photos.some((p) => p.startsWith("http"))) {
+      await prisma.listing.update({
+        where: { id: row.id },
+        data: { photos: [listingPhoto(row.type, row.city, row.region, 0)] },
+      });
+    }
   }
 
   console.log(`Done. ${facilities.length} registered facilities are now listings.`);

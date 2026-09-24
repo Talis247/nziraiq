@@ -1,9 +1,9 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { auth } from "@/auth";
 import { AppShell } from "@/components/AppShell";
 import { Providers } from "@/components/Providers";
 import { prisma } from "@/lib/db";
+import { fastPhoto, photoForPlace } from "@/lib/destinations";
 import { priceLabel } from "@/lib/utils";
 import { MapPin, Star, Users } from "lucide-react";
 import { BookingRequestForm } from "@/components/BookingRequestForm";
@@ -25,13 +25,12 @@ export default async function ListingDetailPage({
     data: { listingId: listing.id, userId: session?.user?.id },
   });
 
-  const photo =
-    listing.photos.find((p) => p.startsWith("/uploads/")) ||
-    listing.photos.find((p) => p && !p.includes("images.unsplash.com")) ||
+  const raw =
+    listing.photos.find((p) => p.startsWith("/uploads/") || p.startsWith("/photos/")) ||
     listing.photos[0] ||
-    "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=80";
-
-  const localPhoto = photo.startsWith("/");
+    photoForPlace(listing.city, listing.region) ||
+    "/photos/safari-1.jpg";
+  const photo = fastPhoto(raw);
 
   return (
     <Providers>
@@ -39,12 +38,8 @@ export default async function ListingDetailPage({
         <div className="grid gap-8 lg:grid-cols-5">
           <div className="lg:col-span-3">
             <div className="relative aspect-[16/11] overflow-hidden rounded-3xl bg-black/[0.04]">
-              {localPhoto ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={photo} alt={listing.title} className="h-full w-full object-cover" />
-              ) : (
-                <Image src={photo} alt={listing.title} fill unoptimized className="object-cover" priority />
-              )}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={photo} alt={listing.title} className="h-full w-full object-cover" />
             </div>
             <div className="mt-6">
               <p className="text-xs font-semibold uppercase tracking-widest text-zim-gold">

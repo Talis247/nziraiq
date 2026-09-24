@@ -117,7 +117,7 @@ export function RegisterForm({
 
   return (
     <AuthFrame
-      image="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=80"
+      image="/photos/hero-safari.jpg"
       imageAlt="Safari in Zimbabwe"
       brand={
         <>

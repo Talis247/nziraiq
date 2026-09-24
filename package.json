@@ -42,7 +42,8 @@
     "prisma": "6.19.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
-    "typescript": "^5"
+    "typescript": "^5",
+    "xlsx": "^0.18.5"
   },
   "allowScripts": {
     "@prisma/client@6.19.0": true,

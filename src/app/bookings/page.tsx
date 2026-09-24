@@ -40,7 +40,7 @@ export default async function BookingsPage() {
               const photo =
                 photoForPlace(b.listing.city, b.listing.region) ||
                 b.listing.photos[0] ||
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Cataratas_Victoria%2C_Zambia-Zimbabue%2C_2018-07-27%2C_DD_30-34_PAN.jpg/960px-Cataratas_Victoria%2C_Zambia-Zimbabue%2C_2018-07-27%2C_DD_30-34_PAN.jpg";
+                "/photos/victoria-falls.jpg";
               const confirmed = b.status === "CONFIRMED" || b.status === "PAID";
               return (
                 <Link
