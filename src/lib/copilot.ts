@@ -215,6 +215,50 @@ async function matchPlatform(opts: {
   };
 }
 
+function conversationalReply(
+  message: string,
+  destination?: string,
+  budget?: number,
+  activityLabels: string[] = [],
+): CopilotItinerary {
+  const text = message.trim().toLowerCase();
+  const greeting = /^(hi|hello|hey|howdy|yo|good morning|good afternoon|good evening|thanks|thank you)\b/.test(text);
+  const about = /what|who are you|help|about|how (do|does)|this (app|system)|zimtour|nzira/.test(text);
+
+  const hello = greeting
+    ? "Hi, I'm NziraIQ. Good to hear from you."
+    : about
+      ? "I'm NziraIQ, the chatbot inside ZimTour Pulse."
+      : "I can help with that.";
+
+  const aboutSystem =
+    "ZimTour Pulse is for discovering Zimbabwe. Tourists look up stays and activities, plan a trip, and request bookings. Operators list lodges, tours, and services. I only suggest places that are already on the platform.";
+
+  const started = [
+    destination ? `You're looking at ${destination}` : null,
+    activityLabels.length ? activityLabels.join(" and ") : null,
+    budget != null ? `a budget around $${budget}` : null,
+  ].filter(Boolean);
+
+  const next = started.length
+    ? `${started.join(", ")}. Add the rest — a place, the interests you want, and a budget — and I'll show matches.`
+    : "When you're ready, choose a place, tap your interests, and set a budget. Or just ask me what tourists, operators, or the trip planner can do.";
+
+  return {
+    title: "NziraIQ",
+    totalEstimate: 0,
+    currency: "USD",
+    stops: [],
+    places: [],
+    activities: [],
+    brief: { destination, activities: activityLabels, budget },
+    reply: `${hello} ${aboutSystem} ${next}`,
+    reasoning:
+      "This was a normal conversation, so I explained what ZimTour Pulse is instead of searching listings.",
+    model: "NziraIQ",
+  };
+}
+
 function buildPlan(
   message: string,
   matches: { places: CopilotPick[]; activities: CopilotPick[] },
@@ -310,8 +354,9 @@ export async function runCopilot(opts: {
     },
   });
 
-  if (!destination || budget == null || hints.length === 0) {
-    return buildPlan(opts.message, { places: [], activities: [] }, destination, budget, activityLabels);
+  const tripReady = Boolean(destination && budget != null && hints.length);
+  if (!tripReady) {
+    return conversationalReply(opts.message, destination, budget, activityLabels);
   }
 
   const matches = await matchPlatform({ destination, hints, budget });

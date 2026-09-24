@@ -103,12 +103,22 @@ export function CopilotChat({
       .join(", ");
   }
 
-  function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    void send(compose());
+  function messageToSend() {
+    const note = input.trim();
+    const tripReady = Boolean(place && pickedInterests.length && budget);
+    if (!note) return tripReady ? compose() : "";
+    if (!tripReady) return note;
+    if (/^(hi|hello|hey|thanks|thank you|help|what|who|how)\b/i.test(note)) return note;
+    return compose();
   }
 
-  const ready = Boolean(place && pickedInterests.length && budget);
+  function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    const text = messageToSend();
+    if (text) void send(text);
+  }
+
+  const ready = Boolean(input.trim() || (place && pickedInterests.length && budget));
   const hello = firstName ? `Hi ${firstName}, I'm NziraIQ.` : "Hi, I'm NziraIQ.";
 
   return (
@@ -131,7 +141,7 @@ export function CopilotChat({
             </span>
             <h1 className="mt-4 text-2xl font-bold tracking-tight">{hello}</h1>
             <p className="mt-2 text-sm leading-relaxed text-muted">
-              Tell me where you want to go, tap the interests you like, and set a budget. I will only suggest stays and activities already on ZimTour Pulse, and I will show you why.
+              Say hi, or ask what ZimTour Pulse is. When you want a trip, tell me a place, tap your interests, and set a budget. I only suggest stays and activities already on the platform.
             </p>
           </div>
         )}
@@ -237,10 +247,11 @@ export function CopilotChat({
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                void send(compose());
+                const text = messageToSend();
+                if (text) void send(text);
               }
             }}
-            placeholder={ready ? "Add a note, or just send" : "Pick a place, interests, and a budget"}
+            placeholder="Say hi, or ask what ZimTour Pulse does"
             className="max-h-24 min-h-9 w-full resize-none bg-transparent py-1.5 text-sm outline-none"
           />
           <button
