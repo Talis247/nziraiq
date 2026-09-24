@@ -322,7 +322,7 @@ export async function runCopilot(opts: {
     ...plan,
     reply: reasoned?.reply || plan.reply,
     reasoning: reasoned?.reasoning || localReasoning,
-    model: reasoned?.model || "ZimTour Pulse",
+    model: reasoned?.model || "NziraIQ",
   };
 }
 
@@ -384,7 +384,7 @@ async function completeChat(opts: {
           {
             role: "system",
             content:
-              "You plan Zimbabwe trips for ZimTour Pulse. Use only the listings JSON. Do not invent places, prices, or activities. Reply with JSON only: {\"reply\":\"2 short sentences for the traveler\",\"reasoning\":\"2 sentences on why these listings fit the destination, activities, and budget\"}.",
+              "You are NziraIQ, the trip chatbot for ZimTour Pulse. Use only the listings JSON. Do not invent places, prices, or activities. Reply with JSON only: {\"reply\":\"2 short sentences for the traveler\",\"reasoning\":\"2 sentences on why these listings fit the destination, activities, and budget\"}.",
           },
           {
             role: "user",
