@@ -1,4 +1,4 @@
-# NziraIQ
+# ZimTour Pulse
 
 AI-powered tourism platform for Zimbabwe — Copilot, Marketplace, and Tourism Opportunity Intelligence.
 

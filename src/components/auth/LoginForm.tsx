@@ -88,7 +88,7 @@ export function LoginForm({
             <MapPinned className="h-8 w-8 text-zim-green sm:h-10 sm:w-10 lg:h-11 lg:w-11" strokeWidth={1.6} />
           </div>
           <h2 className="text-2xl font-bold uppercase tracking-[0.12em] text-white drop-shadow sm:text-3xl lg:text-4xl">
-            NziraIQ
+            ZimTour Pulse
           </h2>
           <p className="mt-1 text-sm font-medium tracking-wide text-white/90 lg:mt-2 lg:text-base">
             Discover Zimbabwe

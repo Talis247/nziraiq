@@ -140,7 +140,7 @@ export function OnboardingFlow() {
             />
           </div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zim-gold-bright sm:text-xs">
-            NziraIQ
+            ZimTour Pulse
           </p>
           <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white/85 sm:text-[11px]">
             Zimbabwe Tourism
@@ -214,7 +214,7 @@ export function WelcomeScreen() {
             <MapPinned className="h-8 w-8 text-zim-green sm:h-10 sm:w-10" strokeWidth={1.6} />
           </div>
           <h2 className="text-2xl font-bold uppercase tracking-[0.12em] text-white drop-shadow sm:text-3xl">
-            NziraIQ
+            ZimTour Pulse
           </h2>
           <p className="mt-1 text-sm font-medium tracking-wide text-white/90">
             Discover Zimbabwe

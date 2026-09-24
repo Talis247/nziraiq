@@ -237,7 +237,7 @@ function buildPlan(
       places: [],
       activities: [],
       brief: { destination, activities: activityLabels, budget },
-      reply: `Tell me ${missing.join(", ")}. For example: "I want to go to Victoria Falls, do a safari and a boat cruise, budget $400." I will only show places and activities already on NziraIQ.`,
+      reply: `Tell me ${missing.join(", ")}. For example: "I want to go to Victoria Falls, do a safari and a boat cruise, budget $400." I will only show places and activities already on ZimTour Pulse.`,
     };
   }
 
@@ -281,7 +281,7 @@ function buildPlan(
     stops,
     places: matches.places,
     activities: matches.activities,
-    reply: `For ${destination}, ${activityLabels.join(", ")}, and a $${budget} budget, NziraIQ has ${placeLine} and ${activityLine}. Priced options add up to about $${Math.round(total) || 0}. Anything marked on request is in the national register without a public rate, so it stays inside your search until the operator confirms.`,
+    reply: `For ${destination}, ${activityLabels.join(", ")}, and a $${budget} budget, ZimTour Pulse has ${placeLine} and ${activityLine}. Priced options add up to about $${Math.round(total) || 0}. Anything marked on request is in the national register without a public rate, so it stays inside your search until the operator confirms.`,
   };
 }
 
@@ -316,13 +316,13 @@ export async function runCopilot(opts: {
 
   const matches = await matchPlatform({ destination, hints, budget });
   const plan = buildPlan(opts.message, matches, destination, budget, activityLabels);
-  const localReasoning = `You want ${destination}, with ${activityLabels.join(", ")}, on about $${budget}. I only kept stays and activities that are already listed on NziraIQ.`;
+  const localReasoning = `You want ${destination}, with ${activityLabels.join(", ")}, on about $${budget}. I only kept stays and activities that are already listed on ZimTour Pulse.`;
   const reasoned = await reasonWithOpenModel(plan);
   return {
     ...plan,
     reply: reasoned?.reply || plan.reply,
     reasoning: reasoned?.reasoning || localReasoning,
-    model: reasoned?.model || "Nzira",
+    model: reasoned?.model || "ZimTour Pulse",
   };
 }
 
@@ -384,7 +384,7 @@ async function completeChat(opts: {
           {
             role: "system",
             content:
-              "You plan Zimbabwe trips for NziraIQ. Use only the listings JSON. Do not invent places, prices, or activities. Reply with JSON only: {\"reply\":\"2 short sentences for the traveler\",\"reasoning\":\"2 sentences on why these listings fit the destination, activities, and budget\"}.",
+              "You plan Zimbabwe trips for ZimTour Pulse. Use only the listings JSON. Do not invent places, prices, or activities. Reply with JSON only: {\"reply\":\"2 short sentences for the traveler\",\"reasoning\":\"2 sentences on why these listings fit the destination, activities, and budget\"}.",
           },
           {
             role: "user",

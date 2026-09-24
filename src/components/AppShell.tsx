@@ -81,7 +81,7 @@ export function AppShell({
             <MapPinned className="h-[1.125rem] w-[1.125rem]" />
           </span>
           <div className="min-w-0">
-            <p className="truncate text-base font-bold tracking-wide">NziraIQ</p>
+            <p className="truncate text-base font-bold tracking-wide">ZimTour Pulse</p>
             <p className="truncate text-[10px] uppercase tracking-[0.16em] text-muted">
               {layerLabel}
             </p>
@@ -126,7 +126,7 @@ export function AppShell({
                 <MapPinned className="h-4 w-4" />
               </span>
               <div className="min-w-0">
-                <p className="truncate text-sm font-bold tracking-wide">NziraIQ</p>
+                <p className="truncate text-sm font-bold tracking-wide">ZimTour Pulse</p>
                 <p className="truncate text-[10px] uppercase tracking-wider text-muted">
                   {layerLabel}
                 </p>

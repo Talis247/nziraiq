@@ -79,7 +79,7 @@ async function main() {
   await prisma.user.create({
     data: {
       email: "admin@nziraiq.test",
-      name: "NziraIQ Admin",
+      name: "ZimTour Pulse Admin",
       passwordHash,
       role: "ADMIN",
     },
@@ -307,7 +307,7 @@ async function main() {
     ],
   });
 
-  console.log("Seeded NziraIQ demo data.");
+  console.log("Seeded ZimTour Pulse demo data.");
   console.log("Logins (password: password123):");
   console.log("  traveler@nziraiq.test  (Tourist)");
   console.log("  operator@nziraiq.test  (Operator — services)");

@@ -11,7 +11,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "NziraIQ — Discover Zimbabwe",
+  title: "ZimTour Pulse — Discover Zimbabwe",
   description:
     "AI-powered tourism for Zimbabwe: plan trips, book local experiences, and grow the sector with intelligence.",
 };

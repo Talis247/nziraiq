@@ -109,7 +109,7 @@ export function CopilotChat({
   }
 
   const ready = Boolean(place && pickedInterests.length && budget);
-  const hello = firstName ? `Hi ${firstName}, I'm Nzira.` : "Hi, I'm Nzira.";
+  const hello = firstName ? `Hi ${firstName}, I'm ZimTour Pulse.` : "Hi, I'm ZimTour Pulse.";
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[1.5rem] bg-white ring-1 ring-black/[0.06]">
@@ -118,7 +118,7 @@ export function CopilotChat({
           <Sparkles className="h-4 w-4" />
         </span>
         <div>
-          <p className="text-sm font-semibold">Nzira</p>
+          <p className="text-sm font-semibold">ZimTour Pulse</p>
           <p className="text-[11px] text-muted">Your Zimbabwe trip chat</p>
         </div>
       </div>
@@ -131,7 +131,7 @@ export function CopilotChat({
             </span>
             <h1 className="mt-4 text-2xl font-bold tracking-tight">{hello}</h1>
             <p className="mt-2 text-sm leading-relaxed text-muted">
-              Tell me where you want to go, tap the interests you like, and set a budget. I will only suggest stays and activities already on NziraIQ, and I will show you why.
+              Tell me where you want to go, tap the interests you like, and set a budget. I will only suggest stays and activities already on ZimTour Pulse, and I will show you why.
             </p>
           </div>
         )}
@@ -146,7 +146,7 @@ export function CopilotChat({
               }`}
             >
               {message.role === "assistant" && (
-                <p className="mb-1 text-[11px] font-semibold text-zim-green">Nzira</p>
+                <p className="mb-1 text-[11px] font-semibold text-zim-green">ZimTour Pulse</p>
               )}
               <p>{message.text}</p>
               {message.reasoning && (
@@ -173,7 +173,7 @@ export function CopilotChat({
         ))}
 
         {loading && (
-          <p className="text-sm text-muted">Nzira is looking through the listings…</p>
+          <p className="text-sm text-muted">ZimTour Pulse is looking through the listings…</p>
         )}
       </div>
 
